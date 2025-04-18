@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  basePath: '/hems',
+  output: 'export',  // 启用静态导出
+  basePath: '/hems', // 设置基础路径为仓库名
   images: {
-    unoptimized: true,
+    unoptimized: true, // GitHub Pages 不支持图片优化
   },
-  // 禁用需要服务器的特性
   typescript: {
     ignoreBuildErrors: true,
   },
