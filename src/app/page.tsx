@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import PowerUsageChart from "@/components/PowerUsageChart";
 import PowerStats from "@/components/PowerStats";
 import PowerAlerts from "@/components/PowerAlerts";
@@ -8,6 +9,20 @@ import BillBreakdown from "@/components/BillBreakdown";
 import DevicePowerRanking from "@/components/DevicePowerRanking";
 
 export default function Home() {
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    // 初始化时间
+    setCurrentTime(new Date().toLocaleString('zh-CN'));
+    
+    // 每秒更新时间
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleString('zh-CN'));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
@@ -21,7 +36,7 @@ export default function Home() {
               </p>
             </div>
             <div className="text-sm text-gray-500 whitespace-nowrap">
-              更新时间：{new Date().toLocaleString('zh-CN')}
+              更新时间：{currentTime}
             </div>
           </div>
 
