@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import PowerUsageChart from "@/components/PowerUsageChart";
@@ -11,25 +11,18 @@ import BillBreakdown from "@/components/BillBreakdown";
 import DevicePowerRanking from "@/components/DevicePowerRanking";
 
 export default function Home() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-
+  const [isClient, setIsClient] = useState(false);
+  
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin');
-    }
-  }, [status, router]);
+    setIsClient(true);
+  }, []);
 
-  if (status === 'loading') {
+  if (!isClient) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
-  }
-
-  if (!session) {
-    return null;
   }
 
   return (
